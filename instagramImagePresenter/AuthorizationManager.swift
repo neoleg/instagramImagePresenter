@@ -15,7 +15,7 @@ class AuthorizationManager {
     
     
     
-    func saveToUserDefaults () {
+    public func saveToUserDefaults () {
         UserDefaults.standard.set(self.accessToken, forKey: "accessToken")
     }
     
@@ -98,6 +98,7 @@ class AuthorizationManager {
                         if let json = response.result.value as? [String: Any] {
                             
                             self.accessToken = (json["access_token"]! as! String)
+                            self.saveToUserDefaults()
                             completion(self.accessToken!)
                         }
                     } else {

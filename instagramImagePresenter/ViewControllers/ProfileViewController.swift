@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SDWebImage
+
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -14,19 +16,19 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var profileIcon: UIImageView!
     
-    var profileData = [] as Array
+    var profileData = DataManager.sharedManager.userData
+    var lastTap: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            
+        self.userNameLabel.text = (self.profileData.last as! NSDictionary).object(forKey: "username") as? String
         
+        let currentImage = (self.profileData.last as! NSDictionary).object(forKey: "profilePicture") as? String
+        self.profileIcon.sd_setImage(with: URL(string: currentImage!), placeholderImage: UIImage(named: "placeholder.png"))
         
-        AuthorizationManager.sharedManager.getUserData { (response) in
-            self.profileData = response
-            
-            
-            
-            self.collectionView.reloadData()
-        }
+        self.collectionView.reloadData()
+
         
     }
     
@@ -36,6 +38,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
+        print(self.profileData.count)
         return self.profileData.count - 1
     }
     
@@ -43,10 +46,45 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileViewCell.cellId(), for: indexPath) as! ProfileViewCell
 
+        //add gesture recognizer
         
+        cell.image.isUserInteractionEnabled = true
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler(sender:)))
+        cell.image.addGestureRecognizer(longPress)
+        
+        //setup image
+        
+        let currentImage = (self.profileData[indexPath.row] as! NSDictionary).object(forKey: "thumbnailURL") as? String
+        cell.image.sd_setImage(with: URL(string: currentImage!), placeholderImage: UIImage(named: "placeholder.png"))
+        cell.image.tag = indexPath.row
         
         return cell
     }
+    
+    
+    // MARK: - gestureRecognizer
+    
+    
+    @objc func longPressHandler(sender: UILongPressGestureRecognizer) {
+        
+        if sender.state == UIGestureRecognizerState.began {
+            
+            self.lastTap = (sender.view?.tag)!
+            performSegue(withIdentifier: "profileToFullscreen", sender: sender)
+        }
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let imageFullscreen: FullscreenImageViewController = segue.destination as! FullscreenImageViewController
+        
+        let currentImage = (self.profileData[self.lastTap] as! NSDictionary).object(forKey: "standardResolutionURL") as? String
+        imageFullscreen.imageURL = currentImage
+        
+    }
+    
+    
 }
 
 

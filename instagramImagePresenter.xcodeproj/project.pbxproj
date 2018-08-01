@@ -16,6 +16,8 @@
 		8B05D5F72110781300E34445 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B05D5F62110781300E34445 /* ProfileViewController.swift */; };
 		8B5AB5A221109B9C0024EF7C /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AB5A121109B9C0024EF7C /* AuthorizationManager.swift */; };
 		8B5AB5A5211195300024EF7C /* ProfileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AB5A4211195300024EF7C /* ProfileViewCell.swift */; };
+		8B5AB5A82111C7D80024EF7C /* FullscreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AB5A72111C7D80024EF7C /* FullscreenImageViewController.swift */; };
+		8B5AB5AA2111F05E0024EF7C /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AB5A92111F05E0024EF7C /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		8B05D5F62110781300E34445 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8B5AB5A121109B9C0024EF7C /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		8B5AB5A4211195300024EF7C /* ProfileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCell.swift; sourceTree = "<group>"; };
+		8B5AB5A72111C7D80024EF7C /* FullscreenImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenImageViewController.swift; sourceTree = "<group>"; };
+		8B5AB5A92111F05E0024EF7C /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		945611729147DCA8274DFFF6 /* Pods_instagramImagePresenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_instagramImagePresenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABBCB04D46E23466BEE48707 /* Pods-instagramImagePresenter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instagramImagePresenter.release.xcconfig"; path = "Pods/Target Support Files/Pods-instagramImagePresenter/Pods-instagramImagePresenter.release.xcconfig"; sourceTree = "<group>"; };
 		B777EC93B64569D47D017D61 /* Pods-instagramImagePresenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instagramImagePresenter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-instagramImagePresenter/Pods-instagramImagePresenter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -70,9 +74,10 @@
 				8B05D5E421105F0F00E34445 /* AppDelegate.swift */,
 				8B5AB5A321109BC10024EF7C /* ViewControllers */,
 				8B5AB5A6211195EA0024EF7C /* Cells */,
-				8B05D5E821105F0F00E34445 /* Main.storyboard */,
 				8B5AB5A121109B9C0024EF7C /* AuthorizationManager.swift */,
+				8B5AB5A92111F05E0024EF7C /* DataManager.swift */,
 				8B05D5EB21105F1000E34445 /* Assets.xcassets */,
+				8B05D5E821105F0F00E34445 /* Main.storyboard */,
 				8B05D5ED21105F1000E34445 /* LaunchScreen.storyboard */,
 				8B05D5F021105F1000E34445 /* Info.plist */,
 			);
@@ -84,6 +89,7 @@
 			children = (
 				8B05D5E621105F0F00E34445 /* ViewController.swift */,
 				8B05D5F62110781300E34445 /* ProfileViewController.swift */,
+				8B5AB5A72111C7D80024EF7C /* FullscreenImageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -230,6 +236,8 @@
 				8B05D5F72110781300E34445 /* ProfileViewController.swift in Sources */,
 				8B5AB5A221109B9C0024EF7C /* AuthorizationManager.swift in Sources */,
 				8B05D5E721105F0F00E34445 /* ViewController.swift in Sources */,
+				8B5AB5AA2111F05E0024EF7C /* DataManager.swift in Sources */,
+				8B5AB5A82111C7D80024EF7C /* FullscreenImageViewController.swift in Sources */,
 				8B05D5E521105F0F00E34445 /* AppDelegate.swift in Sources */,
 				8B5AB5A5211195300024EF7C /* ProfileViewCell.swift in Sources */,
 			);

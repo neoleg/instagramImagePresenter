@@ -56,8 +56,12 @@ extension ViewController: WKNavigationDelegate {
                 
                 print(accessToken)
                 
-                let userProfileView = self.storyboard?.instantiateViewController(withIdentifier: "profileViewController")
-                self.present(userProfileView!, animated: true, completion: nil)
+                DataManager.sharedManager.loadData(completion: {
+                    
+                    let userProfileView = self.storyboard?.instantiateViewController(withIdentifier: "profileViewController")
+                    self.present(userProfileView!, animated: true, completion: nil)
+                    
+                })
                 
             }
             
