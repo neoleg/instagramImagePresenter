@@ -1,0 +1,6 @@
+framework module Pods_instagramImagePresenter {
+  umbrella header "Pods-instagramImagePresenter-umbrella.h"
+
+  export *
+  module * { export * }
+}
