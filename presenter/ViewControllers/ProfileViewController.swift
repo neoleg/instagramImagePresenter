@@ -17,10 +17,10 @@ class ProfileViewController: UIViewController,UICollectionViewDelegate, UICollec
     @IBOutlet weak var username: UILabel!
     
     private var userPhotos = [] as Array
-    private var userPersonal: ServerManager.userPersonalType? = nil
+    private var userPersonal: ServerManager.UserPersonal? = nil
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
             
@@ -41,9 +41,7 @@ class ProfileViewController: UIViewController,UICollectionViewDelegate, UICollec
             }
         } else {
             
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
-                self.performSegue(withIdentifier: "profileToAuthorization", sender: nil)
-            }
+            self.performSegue(withIdentifier: "profileToAuthorization", sender: nil)
         }
     }
 
@@ -58,12 +56,11 @@ class ProfileViewController: UIViewController,UICollectionViewDelegate, UICollec
     
     // MARK: - gesture handler
     
-    
     @objc func longPressHandler(sender: UILongPressGestureRecognizer) {
         
         if sender.state == UIGestureRecognizerState.began {
             
-            if let gestureView = sender.view, let info = self.userPhotos[gestureView.tag] as? ServerManager.userPhotosType {
+            if let gestureView = sender.view, let info = self.userPhotos[gestureView.tag] as? ServerManager.UserPhotos {
                 let currentImage = info.standardResolutionURL
                 performSegue(withIdentifier: "profileToFullscreen", sender: currentImage)
             }
@@ -71,7 +68,6 @@ class ProfileViewController: UIViewController,UICollectionViewDelegate, UICollec
     }
     
     // MARK: - collection view
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.userPhotos.count
@@ -91,7 +87,7 @@ class ProfileViewController: UIViewController,UICollectionViewDelegate, UICollec
         
         //setup image
         
-        if let info = self.userPhotos[indexPath.row] as? ServerManager.userPhotosType {
+        if let info = self.userPhotos[indexPath.row] as? ServerManager.UserPhotos {
             let currentImage = info.thumbnailURL
             cell.image.sd_setImage(with: URL(string: currentImage), completed: nil)
         } else {

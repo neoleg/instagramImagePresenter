@@ -20,12 +20,12 @@ class ServerManager {
         static let baseUrl = "https://api.instagram.com/"
     }
     
-    struct userPersonalType {
+    struct UserPersonal {
         let username: String
         let profilePicture: String
     }
     
-    struct userPhotosType {
+    struct UserPhotos {
         let thumbnailURL: String
         let standardResolutionURL: String
     }
@@ -84,7 +84,7 @@ class ServerManager {
         }
     }
     
-    public func getUserData (completion: @escaping (_ userPhoto: Array<userPhotosType>?, _ userPersonal: userPersonalType?, _ error: NSError?) -> Void) {
+    public func getUserData (completion: @escaping (_ userPhoto: Array<UserPhotos>?, _ userPersonal: UserPersonal?, _ error: NSError?) -> Void) {
         
         if self.accessToken != nil {
             Alamofire.request(Constants.baseUrl + "v1/users/self/media/recent/?access_token=" + self.accessToken!).responseJSON { (response) in
@@ -111,33 +111,29 @@ class ServerManager {
         }
     }
     
-    class private func parsePhotos (response: Any) -> Array<userPhotosType>? {
+    class private func parsePhotos (response: Any) -> Array<UserPhotos>? {
         var parsedArray = [] as Array
         
-        let json = response as! [String: Any]
-        let data = json["data"] as! [[String: Any]]
-        
-        for item in data {
-            let images = item["images"] as! [String: Any]
+        if let json = response as? [String: Any], let data = json["data"] as? [[String: Any]] {
             
-            let thumbnail = images["thumbnail"] as! [String: Any]
-            let thumbnailURL = thumbnail["url"] as! String
-            
-            let standardResolution = images["standard_resolution"] as! [String: Any]
-            let standardResolutionURL = standardResolution["url"] as! String
-            
-            let result: userPhotosType = userPhotosType(thumbnailURL: thumbnailURL, standardResolutionURL: standardResolutionURL)
-            parsedArray.append(result)
+            for item in data {
+                
+                if let images = item["images"] as? [String: Any], let thumbnail = images["thumbnail"] as? [String: Any], let thumbnailURL = thumbnail["url"] as? String, let standardResolution = images["standard_resolution"] as? [String: Any], let standardResolutionURL = standardResolution["url"] as? String  {
+                    
+                    let result: UserPhotos = UserPhotos(thumbnailURL: thumbnailURL, standardResolutionURL: standardResolutionURL)
+                    parsedArray.append(result)
+                }
+            }
+            return parsedArray as? Array<UserPhotos>
         }
-        
-        return parsedArray as? Array<userPhotosType>
+        return nil
     }
     
-    class private func parsePersonal (response: Any) -> userPersonalType? {
+    class private func parsePersonal (response: Any) -> UserPersonal? {
         
         if let json = response as? [String: Any], let data = json["data"] as? [[String: Any]], let user = data[0]["user"] as? [String: Any], let username = user["username"] as? String, let profilePicture = user["profile_picture"] as? String {
         
-            let result: userPersonalType = userPersonalType(username: username, profilePicture: profilePicture)
+            let result: UserPersonal = UserPersonal(username: username, profilePicture: profilePicture)
             return result
         }
         return nil
